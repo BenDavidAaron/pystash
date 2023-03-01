@@ -7,7 +7,9 @@ setup(
     author="Ben Aaron",
     license="GPLv3",
     packages=find_packages(),
-    install_requires=[],
+    install_requires=[
+        "appdirs~=1.4",
+    ],
     entry_points={
         "console_scripts": ["pystash=pystash.main:main"],
     },
