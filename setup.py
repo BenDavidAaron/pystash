@@ -9,6 +9,7 @@ setup(
     packages=find_packages(),
     install_requires=[
         "appdirs~=1.4",
+        "cryptography~=39.0",
     ],
     entry_points={
         "console_scripts": ["pystash=pystash.main:main"],
