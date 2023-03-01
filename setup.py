@@ -10,6 +10,7 @@ setup(
     install_requires=[
         "appdirs~=1.4",
         "cryptography~=39.0",
+        "click~=8.1",
     ],
     entry_points={
         "console_scripts": ["pystash=pystash.main:main"],

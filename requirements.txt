@@ -19,9 +19,9 @@ platformdirs==3.0.0
 pluggy==1.0.0
 pycparser==2.21
 pylint==2.16.2
+-e git+ssh://git@github.com/BenDavidAaron/pystash.git@cc123029200780a4448bea2dd48d3293d57297b0#egg=pystash
 pytest==7.2.1
 tomli==2.0.1
 tomlkit==0.11.6
 typing_extensions==4.5.0
 wrapt==1.15.0
--e ./
