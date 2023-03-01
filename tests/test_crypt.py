@@ -1,5 +1,6 @@
 from pystash import crypt
 
+
 def test_make_key():
     crypt.make_key_from_password("test")
 
