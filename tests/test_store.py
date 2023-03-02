@@ -1,6 +1,6 @@
-from pystash import store
-
 import pytest
+
+from pystash import store
 
 
 def test_cache_put_and_get(tmp_path):
