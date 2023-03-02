@@ -123,7 +123,7 @@ def get(
 @click.option(
     "--clipboard",
     "-c",
-    type=bool,
+    is_flag=True,
     help="Fetch secret from clipboard and store",
 )
 def put(
@@ -160,13 +160,15 @@ def put(
             return
 
     if file is not None:
-        secret_val = file.read_bytes()
+        secret_val = file.read_text()
 
     if clipboard:
-        secret_val = pyperclip.copy()
+        secret_val = pyperclip.paste()
 
     encrypted_secret = CRYPT.encrypt_with_password(
-        bytes(secret_val, "utf-8"), password)
+        bytes(secret_val, "utf-8"),
+        password,
+    )
     STORE[secret] = encrypted_secret
     return
 
