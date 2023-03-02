@@ -149,5 +149,10 @@ def put(
     confirmation_prompt=False,
     help="password to unlock vault.",
 )
-def delete():
-    click.echo("deleting secret")
+def delete(secret: str, password: str):
+    if not CRYPT.check_key_hash(CRYPT.make_key_from_password(password)):
+        click.echo("invalid password")
+        return
+    click.echo(f"deleting {secret}...")
+    del STORE[secret]
+    click.echo(f"...deleted {secret}")
