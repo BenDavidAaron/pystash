@@ -33,7 +33,7 @@ pystash init
 ### Usage:
 You can put secrets by name, and you can store secrets from multiple sources:
 
-Via shell with `--val S3CRE7`
+Via shell with `--val`
 ```
 pystash put a_secret --val S3CRE7
 ```
