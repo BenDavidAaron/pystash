@@ -1,6 +1,7 @@
 import base64
 import hashlib
 import pathlib
+import os
 
 from cryptography.fernet import Fernet
 from cryptography.hazmat.primitives import hashes
@@ -31,6 +32,14 @@ class Crypt:
         with (self.dir / "key").open("rb") as f:
             disk_digest = f.read()
         return disk_digest == m.digest()
+
+    def exists(self) -> bytes:
+        return (self.dir / "key").exists()
+
+    def clear(self):
+        with (self.dir / "key").open("wb") as f:
+            f.write(os.urandom(1024))
+        (self.dir / "key").unlink()
 
     @staticmethod
     def make_key_from_password(password: str) -> bytes:

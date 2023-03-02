@@ -23,3 +23,11 @@ def test_set_and_check_wrong_key(tmp_path):
     c = crypt.Crypt(tmp_path)
     c.record_key_hash(b"bonk")
     assert not c.check_key_hash(b"donk")
+
+def test_set_and_removal_of_key_hash(tmp_path):
+    c = crypt.Crypt(tmp_path)
+    assert not c.exists()
+    c.record_key_hash(b"bonk")
+    assert c.exists()
+    c.clear()
+    assert not c.exists()
