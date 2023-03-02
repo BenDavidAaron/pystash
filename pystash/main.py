@@ -8,6 +8,8 @@ CRYPT = crypt.Crypt(config.ROOT_PATH)
 
 @click.group()
 def main():
+    print(STORE.dir)
+    print(CRYPT.dir)
     pass
 
 
@@ -41,8 +43,13 @@ def init(password: str):
     confirmation_prompt=False,
     help="password to unlock vault.",
 )
-def get():
-    click.echo("getting secret")
+def get(secret: str, password: str):
+    if not CRYPT.check_key_hash(CRYPT.make_key_from_password(password)):
+        click.echo("invalid password")
+        return
+    encrypted_secret = STORE[secret]
+    secret = CRYPT.decrypt_with_password(encrypted_secret, password)
+    click.echo(secret)
 
 
 @main.command()
@@ -58,8 +65,20 @@ def get():
     confirmation_prompt=False,
     help="password to unlock vault.",
 )
-def put():
-    click.echo("putting secret")
+@click.option(
+    "--val",
+    "-v",
+    prompt=True,
+    hide_input=True,
+    help="secret to store in pystash",
+)
+def put(secret: str, password: str, val: str):
+    if not CRYPT.check_key_hash(CRYPT.make_key_from_password(password)):
+        click.echo("invalid password")
+        return
+    encrypted_secret = CRYPT.encrypt_with_password(bytes(val, "utf-8"), password)
+    STORE[secret] = encrypted_secret
+    return
 
 
 @main.command()
