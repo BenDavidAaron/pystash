@@ -49,12 +49,12 @@ class Crypt:
 
     @staticmethod
     def encrypt_with_password(data: bytes, password: str) -> bytes:
-        f = Fernet(make_key_from_password(password))
+        f = Fernet(Crypt.make_key_from_password(password))
         encrypted_data = f.encrypt(data)
         return encrypted_data
 
     @staticmethod
     def decrypt_with_password(data: bytes, password: str) -> bytes:
-        f = Fernet(make_key_from_password(password))
+        f = Fernet(Crypt.make_key_from_password(password))
         encrypted_data = f.decrypt(data)
         return encrypted_data
