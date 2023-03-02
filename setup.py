@@ -11,6 +11,7 @@ setup(
         "appdirs~=1.4",
         "cryptography~=39.0",
         "click~=8.1",
+        "pyperclip~=1.8",
     ],
     entry_points={
         "console_scripts": [
