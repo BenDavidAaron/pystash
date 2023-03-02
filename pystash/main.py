@@ -44,13 +44,48 @@ def init(password: str):
     confirmation_prompt=False,
     help="password to unlock vault.",
 )
-def get(secret: str, password: str):
+@click.option(
+    "--verbose",
+    "-v",
+    is_flag=True,
+    help="Verbosely print the secret to stdout.",
+)
+@click.option(
+    "--file",
+    "-f",
+    type=pathlib.Path,
+    help="File to store retrieved secret in.",
+)
+@click.option(
+    "--clipboard",
+    "-c",
+    is_flag=True,
+    help="Fetch secret and store on system clipboard.",
+)
+def get(
+    secret: str,
+    password: str,
+    verbose: bool,
+    file: pathlib.Path,
+    clipboard: bool,
+):
     if not CRYPT.check_key_hash(CRYPT.make_key_from_password(password)):
         click.echo("invalid password")
         return
     encrypted_secret = STORE[secret]
-    secret = CRYPT.decrypt_with_password(encrypted_secret, password)
-    click.echo(secret)
+    decrypted_secret = CRYPT.decrypt_with_password(encrypted_secret, password)
+    click.echo(f"Secret {secret} found...")
+    if verbose:
+        click.echo(decrypted_secret)
+    if file:
+        file.write_bytes(decrypted_secret)
+        click.echo(f"saved to {file}")
+    if clipboard:
+        pyperclip.copy(
+            str(decrypted_secret).strip("b").strip("'")
+        )
+        click.echo("saved to clipboard")
+    return
 
 
 @main.command()
