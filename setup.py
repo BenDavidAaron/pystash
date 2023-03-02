@@ -13,6 +13,8 @@ setup(
         "click~=8.1",
     ],
     entry_points={
-        "console_scripts": ["pystash=pystash.main:main"],
+        "console_scripts": [
+            "pystash=pystash.main:main",
+        ],
     },
 )
